@@ -1,0 +1,48 @@
+{% extends "generic_page.html" %}
+{% load static %}
+
+{% block head %}
+<link href="{% static 'catalog/dishes.css' %}" rel="stylesheet">
+<script src="{% static 'catalog/dishes.js' %}" defer></script>
+{% endblock %}
+
+{% block nav-items %}
+
+{% endblock nav-items %}
+
+{% block content %}
+<div class="album py-5" id="content">
+    <div class="container-fluid">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            {% for dish in dishtype.dish_set.all %}
+                <div class="col" >
+                    <div class="card shadow-sm">
+                        {% if dish.image %}
+                            <img src="{{ dish.image.url }}" class="bd-placeholder-img card-img-top responsive">
+                        {% endif %}
+
+                        <div class="card-header text-center card-text">
+                            <h2>{{dish.name}}</h2>
+                        </div>
+                        <div class="card-body">
+
+                            <p class="card-text text-center fst-italic">{{dish.description}}</p>
+                            <p class="card-text px-2">Кількість: {{dish.amount}}</p>
+                            <p class="card-text px-2">Ціна: {{dish.price|floatformat:-2}} грн.</p>
+                            {% if dish.status.id != 0 %}
+                            <form action="" method="post" class="text-center py-2">
+                                {% csrf_token %}
+                                <input type="hidden" value="{{ dish.id }}" name="dish_id">
+                                <button type="submit" class="btn btn-warning btn-md">Замовити</button>
+                            </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+
+        </div>
+    </div>
+</div>
+{% endblock content %}

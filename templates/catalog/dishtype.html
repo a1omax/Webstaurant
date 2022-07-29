@@ -1,0 +1,38 @@
+{% extends "generic_page.html" %}
+{% load static %}
+
+{% block head %}
+<link href="{% static 'catalog/dishtype.css' %}" rel="stylesheet">
+<script src="{% static 'catalog/dishtype.js' %}" defer></script>
+
+
+
+{% endblock %}
+
+{% block nav-items %}
+
+{% endblock nav-items %}
+
+{% block content %}
+<div class="album" id="content">
+    <div class="container-fluid">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+                {% for dish_type in dish_types %}
+                <div class="col">
+                  <div class="card shadow-sm text-center">
+                    {% if dish_type.image %}
+                        <img src="{{ dish_type.image.url }}" class="bd-placeholder-img card-img-top p-3 responsive">
+                    {% endif %}
+                    <div class="card-body">
+                      <h2 class="card-text">{{dish_type.name}}</h2>
+
+                      <a href="/dishes/{{dish_type.id}}/" class="stretched-link"></a>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

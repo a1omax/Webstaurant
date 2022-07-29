@@ -1,0 +1,55 @@
+{% extends "generic_page.html" %}
+{% block page-img %}
+{% endblock page-img %}
+{% block content %}
+
+<div class="album py-5 bg-light d-flex justify-content-center" id="content">
+
+            <div>
+              {% if form.errors %}
+
+                <p class="alert alert-danger">Ваше ім'я користувача та пароль не збігаються. Будь ласка спробуйте ще раз.</p>
+              {% endif %}
+
+              {% if next %}
+                {% if user.is_authenticated %}
+                  <p>Ваш обліковий запис не має доступу до цієї сторінки. Щоб продовжити,
+                  будь ласка, увійдіть за допомогою облікового запису, який має доступ.</p>
+                {% else %}
+                  <p>Будь ласка, увійдіть, щоб побачити цю сторінку.</p>
+                {% endif %}
+              {% endif %}
+
+              <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                <table class="table table-borderless">
+                    <tr>
+                      <td style="width: 10em">{{ form.username.label_tag }}</td>
+                      <td>{{ form.username }}</td>
+                    </tr>
+                    <tr>
+                      <td>{{ form.password.label_tag }}</td>
+                      <td>{{ form.password }}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p><a href="{% url 'password_reset' %}">Забули пароль?</a></p>
+                        </td>
+                        <td colspan="2">
+                            <input type="submit" value="Увійти" class="btn btn-success" style="text-align:right;"/>
+                        </td>
+                    </tr>
+                </table>
+                <input type="hidden" name="next" value="{{ next }}" />
+
+              </form>
+            </div>
+
+            <div></div>
+
+        </div>
+
+
+
+
+{% endblock %}

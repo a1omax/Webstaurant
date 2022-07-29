@@ -1,0 +1,63 @@
+{% extends 'generic_page.html' %}
+{% block page-img %}
+{% endblock page-img %}
+{% block content %}  
+
+<div class="album py-5 bg-light" id="content">
+    <div class="container-lg">
+        <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 g-1">
+
+            <div>
+              <form method="post" action="{% url 'signup' %}">
+                {% csrf_token %}
+                {% if form.errors %}
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <div class="alert alert-danger">
+                            <strong>{{ error|escape }}</strong>
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                {% endif %}
+
+                <table class="table table-borderless">
+
+                    <tr>
+                      <td style="width: 10em">{{ form.username.label_tag }}</td>
+                      <td>{{ form.username }}</td>
+                    </tr>
+                    <tr>
+                      <td>{{ form.email.label_tag }}</td>
+                      <td>{{ form.email }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>{{ form.password1.label_tag }}</td>
+                        <td>{{ form.password1 }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.password2.label_tag }}</td>
+                        <td>{{ form.password2 }}</td>
+
+                    </tr>
+                     <tr>
+                        <td></td>
+                        <td><input type="submit" name="submit" value="Зареєструватися" class="btn btn-success"/></td>
+                    </tr>
+                    <tr>
+                         <td></td>
+                         <td><a href="/accounts/login">Вже є сторінка? Авторизуватись</a></td>
+                    </tr>
+                </table>
+
+
+              </form>
+            </div>
+
+            <div></div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock content %}  

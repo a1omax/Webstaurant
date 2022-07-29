@@ -1,0 +1,104 @@
+{% extends "generic_page.html" %}
+{% load static %}
+
+
+{% block nav-items %}
+
+{% endblock nav-items %}
+
+{% block page-img %}
+{% endblock page-img %}
+
+{% block head %}
+<link href="{% static 'users/cart.css' %}" rel="stylesheet">
+<script src="{% static 'users/cart.js' %}" defer></script>
+{% endblock head %}
+
+
+{% block content %}
+
+<div class="popup">
+    <button id="close">×</button>
+    <form method="post">
+        {% csrf_token %}
+        {{ user_form }}
+        {{ profile_form }}
+        <br>
+        <input type="submit" value="Замовити" name="create_order" class="btn btn-info">
+    </form>
+
+</div>
+
+
+<div class="container-flex">
+    <div>
+
+        <table class="table table-striped text-center align-middle table-responsive">
+            {% if items %}
+            <tr>
+                <th >Назва</th>
+                <th>Кількість</th>
+                <th></th>
+                <th>Ціна</th>
+            </tr>
+            {% for item in items %}
+            <tr>
+
+                <td ><a href='/dishes/{{item.product.dish_type.id}}' class="fs-5" style="color: black; text-decoration: none;"> {{ item.product.name }}</a></td>
+                <td class="fs-4">{{ item.amount }}</td>
+                <td>
+                    <form id="item-form" method="post" style="width: 90%; margin: 0;">
+                        {% csrf_token %}
+                        <input type="hidden" value="{{ item.id }}" name="item_id">
+                        <input type="submit" value="+" name="add_item">
+                        <input type="submit" value="—" name="subtract_item">
+                        <input type="submit" value="×" name="delete_item">
+                    </form>
+                </td>
+                <td class="">{{ item.price }} </td>
+            </tr>
+
+            {% endfor %}
+            <tr>
+                <th>До сплати:</th>
+                <td></td>
+                <td></td>
+                <th>{{ total_price }} грн.</th>
+            </tr>
+            {% endif %}
+
+            <tr>
+
+                <td>
+
+
+                </td>
+                {% if items %}
+                <td>
+                </td>
+                <td>
+
+                </td>
+                <td>
+                    <button type="button"  class="btn btn-primary" id="btn_order">Замовити</button>
+                </td>
+                {% endif %}
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+<form id="menu-form" method="post">
+    {% csrf_token %}
+    <button type="submit" name="menu" id="btn_menu" class="btn fs-4">Назад до меню</button>
+</form>
+
+
+
+{% endblock content %}
+
+{% block script %}
+
+{% endblock script %}
+

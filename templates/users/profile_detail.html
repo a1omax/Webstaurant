@@ -1,0 +1,30 @@
+{% extends "generic_page.html" %}
+{% load static %}
+
+{% block nav-items %}
+{% endblock nav-items %}
+
+
+
+{% block page-img %}
+{% endblock page-img %}
+
+{% block content %}
+<div class="album py-5 bg-light" id="content">
+    <div class="container-lg">
+        <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 g-1">
+            <div></div>
+
+            <form method="POST">
+                {% csrf_token %}
+                {{ user_form }}
+                {{ profile_form }}
+                <br>
+                <input type="submit" value="Відправити" class="btn btn-primary">
+            </form>
+            <div></div>
+
+        </div>
+    </div>
+</div>
+{% endblock content %}

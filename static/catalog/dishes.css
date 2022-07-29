@@ -1,0 +1,19 @@
+.card{
+    background-color: #525c59;
+    font-size: 1.4em;
+}
+
+.card-header{
+    background-color: #525c49;
+}
+.card-header.card-text{
+
+}
+
+.card-text{
+    color: white;
+}
+button {
+    font-size: 1.4em;
+    color: white;
+}
